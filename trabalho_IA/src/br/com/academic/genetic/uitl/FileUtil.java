@@ -3,13 +3,16 @@ package br.com.academic.genetic.uitl;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.NoSuchElementException;
 
 import javax.imageio.ImageIO;
 
 public class FileUtil {
 
 	public static BufferedImage loadImage(String fileName) {
+		if (StringUtil.isNullOrEmpty(fileName)) {
+			return null;
+		}
+
 		File file = new File(fileName);
 
 		if (file.exists()) {
@@ -20,6 +23,6 @@ public class FileUtil {
 			}
 		}
 
-		throw new NoSuchElementException("Imagem não encontrada");
+		return null;
 	}
 }

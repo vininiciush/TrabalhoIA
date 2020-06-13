@@ -1,23 +1,19 @@
 package br.com.academic.genetic.model;
 
-import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
-
-import br.com.academic.genetic.uitl.FileUtil;
-import br.com.academic.genetic.uitl.StringUtil;
 
 public class Product {
 
 	private final String name;
 	private final Double volume;
 	private final BigDecimal price;
-	private final String logoName;
+	private final String imageName;
 
-	public Product(String name, Double volume, BigDecimal price, String logoName) {
+	public Product(String name, Double volume, BigDecimal price, String imageName) {
 		this.name = name;
 		this.volume = volume;
 		this.price = price;
-		this.logoName = logoName;
+		this.imageName = imageName;
 	}
 
 	public String getName() {
@@ -32,15 +28,7 @@ public class Product {
 		return price;
 	}
 
-	public String getLogoName() {
-		return logoName;
-	}
-
-	public BufferedImage loadImage() {
-		if (StringUtil.isNullOrEmpty(logoName)) {
-			return null;
-		}
-
-		return FileUtil.loadImage(logoName);
+	public String getImageName() {
+		return imageName;
 	}
 }

@@ -1,14 +1,6 @@
 package br.com.academic.genetic.model;
 
-public class Truck {
+public final class Truck {
 
-	private final Double maxCapacity;
-
-	public Truck(Double maxCapacity) {
-		this.maxCapacity = maxCapacity;
-	}
-
-	public Double getMaxCapacity() {
-		return maxCapacity;
-	}
+	public static final Double MAXCAPACITY = 3.0;
 }
