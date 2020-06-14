@@ -1,4 +1,4 @@
-package br.com.academic.genetic.service.generator;
+package br.com.academic.genetic.algorithm.generator;
 
 import java.util.ArrayList;
 import java.util.List;

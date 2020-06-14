@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import br.com.academic.genetic.algorithm.generator.IndividualGenerator;
+import br.com.academic.genetic.algorithm.generator.PopulationGenerator;
 import br.com.academic.genetic.model.Individual;
-import br.com.academic.genetic.service.generator.IndividualGenerator;
-import br.com.academic.genetic.service.generator.PopulationGenerator;
 
 class PopulationGeneratorTest {
 
