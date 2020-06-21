@@ -1,4 +1,4 @@
-package br.com.academic.genetic.algorithm;
+package br.com.academic.genetic.algorithm.fitness;
 
 public interface EvaluateFitness {
 

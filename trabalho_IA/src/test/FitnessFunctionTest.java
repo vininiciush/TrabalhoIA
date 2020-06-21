@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import br.com.academic.genetic.algorithm.FitnessFunction;
+import br.com.academic.genetic.algorithm.fitness.Fitness;
 import br.com.academic.genetic.algorithm.generator.IndividualGenerator;
 import br.com.academic.genetic.algorithm.generator.PopulationGenerator;
 import br.com.academic.genetic.model.Individual;
@@ -16,7 +16,7 @@ class FitnessFunctionTest {
 	@Test
 	void test() {
 		List<Individual> list = PopulationGenerator.generate(5, new IndividualGenerator());
-		FitnessFunction.calculate((List) list);
+		Fitness.evaluate((List) list);
 
 		list.forEach(i -> {
 			System.out.println("Fitness value: " + i.getFitnessValue());
@@ -26,5 +26,4 @@ class FitnessFunctionTest {
 
 		assertTrue(list.get(0).getFitnessValue() > 0);
 	}
-
 }

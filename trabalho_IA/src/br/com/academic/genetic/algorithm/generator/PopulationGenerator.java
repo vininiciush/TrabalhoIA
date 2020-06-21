@@ -7,7 +7,7 @@ public final class PopulationGenerator {
 
 	public static <T> List<T> generate(int individualsNumber, Generator<T> generator) {
 		List<T> list = new ArrayList<>();
-
+		
 		for (int i = 0; i < individualsNumber; i++) {
 			list.add(generator.generate());
 		}
