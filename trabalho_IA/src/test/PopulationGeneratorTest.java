@@ -17,6 +17,7 @@ class PopulationGeneratorTest {
 		List<Individual> list = PopulationGenerator.generate(3, new IndividualGenerator());
 
 		list.stream().forEach(i -> {
+			System.out.println("Preço máximo: " + i.getMaxPrice());
 			System.out.println("Volume máximo: " + i.getMaxVolume());
 		});
 
