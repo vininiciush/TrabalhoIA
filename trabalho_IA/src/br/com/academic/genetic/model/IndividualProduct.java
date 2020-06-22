@@ -21,8 +21,12 @@ public class IndividualProduct {
 
 		this.productStatus = productStatus;
 	}
-
-	public Product getProduct() {
-		return product;
+	
+	public Double getPrice() {
+		return productStatus.equals(ProductStatus.OCCUPIED) ? product.getPrice() : 0.0;
+	}
+	
+	public Double getVolume() {
+		return productStatus.equals(ProductStatus.OCCUPIED) ? product.getVolume() : 0.0;
 	}
 }

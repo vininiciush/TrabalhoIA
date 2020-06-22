@@ -1,4 +1,4 @@
-package br.com.academic.genetic.service.generator;
+package br.com.academic.genetic.algorithm.generator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ public final class IndividualGenerator implements Generator<Individual> {
 	}
 
 	private Individual evaluateIfValidIndividual(Individual individual) {
-		while (!checkIfValidIndividual(individual)) {
+		while (checkIfInValidIndividual(individual)) {
 			List<IndividualProduct> products = individual.getOccupiedProducts();
 			int index = random.nextInt(products.size());
 			products.get(index).setState(ProductStatus.NON_OCCUPIED);
@@ -39,7 +39,7 @@ public final class IndividualGenerator implements Generator<Individual> {
 		return individual;
 	}
 
-	private boolean checkIfValidIndividual(Individual individual) {
-		return individual.getMaxVolume() <= Truck.MAXCAPACITY;
+	private boolean checkIfInValidIndividual(Individual individual) {
+		return individual.getMaxVolume() > Truck.MAXCAPACITY;
 	}
 }

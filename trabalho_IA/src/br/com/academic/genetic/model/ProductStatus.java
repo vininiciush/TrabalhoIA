@@ -4,13 +4,13 @@ public enum ProductStatus {
 
 	NON_OCCUPIED((byte) 0), OCCUPIED((byte) 1);
 
-	private final byte state;
+	private final Byte state;
 
-	ProductStatus(byte state) {
+	ProductStatus(Byte state) {
 		this.state = state;
 	}
 
-	public byte getState() {
+	public Byte getState() {
 		return state;
 	}
 
