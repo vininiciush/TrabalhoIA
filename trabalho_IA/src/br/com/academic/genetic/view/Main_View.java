@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
@@ -126,9 +127,12 @@ public class Main_View extends JFrame {
 	}
 	
 	private void CallFitnessWindow() {
-		Fitness_View fitness_view = new Fitness_View(getIndividualList());
-		fitness_view.setVisible(true);
-		this.setVisible(false);
+		List<Individual> individuals = getIndividualList();
+		if(individuals != null) {
+			Fitness_View fitness_view = new Fitness_View(individuals);
+			fitness_view.setVisible(true);
+			this.setVisible(false);
+		}
 	}
 	
 	private List<Individual> getIndividualList(){
@@ -138,6 +142,10 @@ public class Main_View extends JFrame {
 			List<IndividualProduct> individualProducts = new ArrayList<IndividualProduct>();
 			for(int i = 0; i < table.getColumnCount(); i++) {
 				Byte productStatus = (Byte) table.getValueAt(x, i);
+				if(productStatus == null) {
+					JOptionPane.showMessageDialog(null, "Não foi possivel ler os individuos corretamente verifique a tabela.");
+					return null;
+				}
 				IndividualProduct individualProduct = new IndividualProduct(ProductsFlyWeight.getProduct(i+1),ProductStatus.fromInt(productStatus));
 				individualProducts.add(individualProduct);
 			}
