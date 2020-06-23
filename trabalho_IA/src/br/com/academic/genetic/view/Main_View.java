@@ -9,23 +9,20 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.sun.org.apache.bcel.internal.generic.IDIV;
 
+import br.com.academic.genetic.algorithm.generator.IndividualGenerator;
+import br.com.academic.genetic.algorithm.generator.PopulationGenerator;
 import br.com.academic.genetic.model.Individual;
 import br.com.academic.genetic.model.IndividualProduct;
-import br.com.academic.genetic.service.generator.IndividualGenerator;
-import br.com.academic.genetic.service.generator.PopulationGenerator;
+import br.com.academic.genetic.model.ProductStatus;
+import br.com.academic.genetic.service.ProductsFlyWeight;
 
 import javax.swing.JTable;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.Vector;
 import java.awt.event.ActionEvent;
-import javax.swing.JLabel;
 
 public class Main_View extends JFrame {
 
@@ -57,6 +54,7 @@ public class Main_View extends JFrame {
 	 * Create the frame.
 	 */
 	public Main_View() {
+		this.setTitle("Seleção de individuos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1500, 549);
 		contentPane = new JPanel();
@@ -83,6 +81,7 @@ public class Main_View extends JFrame {
 		JButton btnIniciar = new JButton("Iniciar");
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				CallFitnessWindow();
 			}
 		});
 		btnIniciar.setBounds(1377, 45, 111, 25);
@@ -124,5 +123,28 @@ public class Main_View extends JFrame {
 		
 		}
 		table.setModel(model);
+	}
+	
+	private void CallFitnessWindow() {
+		Fitness_View fitness_view = new Fitness_View(getIndividualList());
+		fitness_view.setVisible(true);
+		this.setVisible(false);
+	}
+	
+	private List<Individual> getIndividualList(){
+		List<Individual> individuals = new ArrayList<Individual>();
+		
+		for(int x = 0; x < table.getRowCount(); x++) {
+			List<IndividualProduct> individualProducts = new ArrayList<IndividualProduct>();
+			for(int i = 0; i < table.getColumnCount(); i++) {
+				Byte productStatus = (Byte) table.getValueAt(x, i);
+				IndividualProduct individualProduct = new IndividualProduct(ProductsFlyWeight.getProduct(i+1),ProductStatus.fromInt(productStatus));
+				individualProducts.add(individualProduct);
+			}
+			Individual individual = new Individual(individualProducts);
+			individuals.add(individual);
+		}
+		
+		return individuals;
 	}
 }
