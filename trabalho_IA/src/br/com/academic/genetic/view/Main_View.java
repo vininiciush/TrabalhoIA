@@ -4,28 +4,41 @@ import java.awt.EventQueue;
 import java.awt.Font;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.DefaultFormatter;
 
-import com.sun.org.apache.bcel.internal.generic.IDIV;
-
+import br.com.academic.genetic.algorithm.generator.IndividualGenerator;
+import br.com.academic.genetic.algorithm.generator.PopulationGenerator;
 import br.com.academic.genetic.model.Individual;
 import br.com.academic.genetic.model.IndividualProduct;
-import br.com.academic.genetic.service.generator.IndividualGenerator;
-import br.com.academic.genetic.service.generator.PopulationGenerator;
+import br.com.academic.genetic.model.ProductStatus;
+import br.com.academic.genetic.service.ProductsFlyWeight;
 
 import javax.swing.JTable;
-import javax.swing.ImageIcon;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFormattedTextField;
+
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JSpinner;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class Main_View extends JFrame {
 
@@ -35,7 +48,8 @@ public class Main_View extends JFrame {
 	private static final long serialVersionUID = -32660419657504055L;
 	private JPanel contentPane;
 	private JTable table;
-	private static final Integer INDIVIDUOS = 5;
+	private static final Integer INDIVIDUOS = 6;
+	private JSpinner spinner;
 
 	/**
 	 * Launch the application.
@@ -57,6 +71,7 @@ public class Main_View extends JFrame {
 	 * Create the frame.
 	 */
 	public Main_View() {
+		this.setTitle("Seleção de individuos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1500, 549);
 		contentPane = new JPanel();
@@ -83,10 +98,30 @@ public class Main_View extends JFrame {
 		JButton btnIniciar = new JButton("Iniciar");
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				CallFitnessWindow();
 			}
 		});
 		btnIniciar.setBounds(1377, 45, 111, 25);
 		contentPane.add(btnIniciar);
+		
+		JLabel lblNIndividuos = new JLabel("Nº Individuos:");
+		lblNIndividuos.setBounds(1377, 82, 101, 15);
+		contentPane.add(lblNIndividuos);
+		
+		SpinnerModel sm = new SpinnerNumberModel((int)INDIVIDUOS, 2, 20, 1); //default value,lower bound,upper bound,increment by
+		spinner = new JSpinner(sm);
+		JComponent comp = spinner.getEditor();
+	    JFormattedTextField field = (JFormattedTextField) comp.getComponent(0);
+	    DefaultFormatter formatter = (DefaultFormatter) field.getFormatter();
+	    formatter.setCommitsOnValidEdit(true);
+		spinner.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				DefaultTableModel model = (DefaultTableModel) table.getModel();
+				model.setRowCount((int) spinner.getValue());
+			}
+		});
+		spinner.setBounds(1377, 99, 101, 20);
+		contentPane.add(spinner);
 		
 		GenerateTable();
 	}
@@ -108,7 +143,7 @@ public class Main_View extends JFrame {
 	}
 	
 	public void GerarAleatorios() {
-		List<Individual> list = PopulationGenerator.generate(INDIVIDUOS, new IndividualGenerator());//Busca lista de individuos gerados aleatoriamente
+		List<Individual> list = PopulationGenerator.generate((int)spinner.getValue(), new IndividualGenerator());//Busca lista de individuos gerados aleatoriamente
 		
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.setRowCount(0);//Limpa tabela atual
@@ -124,5 +159,38 @@ public class Main_View extends JFrame {
 		
 		}
 		table.setModel(model);
+	}
+	
+	private void CallFitnessWindow() {
+		List<Individual> individuals = getIndividualList();
+		if(individuals != null) {
+			Fitness_View fitness_view = new Fitness_View(1,individuals);
+			fitness_view.setVisible(true);
+			this.setVisible(false);
+		}
+	}
+	
+	private List<Individual> getIndividualList(){
+		List<Individual> individuals = new ArrayList<Individual>();
+		
+		for(int x = 0; x < table.getRowCount(); x++) {
+			List<IndividualProduct> individualProducts = new ArrayList<IndividualProduct>();
+			for(int i = 0; i < table.getColumnCount(); i++) {
+				try {
+					Byte productStatus = (Byte) table.getValueAt(x, i);
+					IndividualProduct individualProduct = new IndividualProduct(ProductsFlyWeight.getProduct(i+1),ProductStatus.fromInt(productStatus));
+					individualProducts.add(individualProduct);
+				}catch(Exception e) {
+					int xi = x+1;
+					int ii = i+1;
+					JOptionPane.showMessageDialog(null, "Não foi possivel ler a celula "+xi+":"+ii+" corretamente verifique a tabela.");
+					return null;
+				}
+			}
+			Individual individual = new Individual(individualProducts);
+			individuals.add(individual);
+		}
+		
+		return individuals;
 	}
 }
