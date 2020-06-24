@@ -24,6 +24,6 @@ class PopulationGeneratorTest {
 		});
 
 		assertEquals(list.size(), 3);
-		assertTrue(list.stream().allMatch(x -> x.getMaxVolume() < Truck.MAXCAPACITY));
+		assertTrue(list.stream().allMatch(x -> Truck.checkIfValid(x.getMaxVolume())));
 	}
 }
