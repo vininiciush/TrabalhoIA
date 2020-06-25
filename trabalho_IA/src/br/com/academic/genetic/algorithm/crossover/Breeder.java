@@ -1,6 +1,6 @@
 package br.com.academic.genetic.algorithm.crossover;
 
-public interface Cruiser<T> {
+public interface Breeder<T> {
 
 	T cross(T partner);
 }

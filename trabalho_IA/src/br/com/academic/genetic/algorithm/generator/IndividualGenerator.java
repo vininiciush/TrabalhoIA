@@ -8,7 +8,6 @@ import br.com.academic.genetic.model.Individual;
 import br.com.academic.genetic.model.IndividualProduct;
 import br.com.academic.genetic.model.Product;
 import br.com.academic.genetic.model.ProductStatus;
-import br.com.academic.genetic.model.Truck;
 import br.com.academic.genetic.service.ProductsFlyWeight;
 
 public final class IndividualGenerator implements Generator<Individual> {
@@ -30,16 +29,12 @@ public final class IndividualGenerator implements Generator<Individual> {
 	}
 
 	private Individual evaluateIfValidIndividual(Individual individual) {
-		while (checkIfInValidIndividual(individual)) {
+		while (!individual.evaluate()) {
 			List<IndividualProduct> products = individual.getOccupiedProducts();
 			int index = random.nextInt(products.size());
 			products.get(index).setState(ProductStatus.NON_OCCUPIED);
 		}
 
 		return individual;
-	}
-
-	private boolean checkIfInValidIndividual(Individual individual) {
-		return individual.getMaxVolume() > Truck.MAXCAPACITY;
 	}
 }

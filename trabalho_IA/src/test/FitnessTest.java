@@ -11,7 +11,7 @@ import br.com.academic.genetic.algorithm.generator.IndividualGenerator;
 import br.com.academic.genetic.algorithm.generator.PopulationGenerator;
 import br.com.academic.genetic.model.Individual;
 
-class FitnessFunctionTest {
+class FitnessTest {
 
 	@Test
 	void test() {
