@@ -1,9 +1,10 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import br.com.academic.genetic.algorithm.crossover.Crossover;
@@ -13,6 +14,13 @@ import br.com.academic.genetic.model.Individual;
 
 class CrossoverTest {
 
+	@BeforeAll
+	static void header() {
+		System.out.println("#####################");
+		System.out.println("### CrossoverTest ###");
+		System.out.println("#####################");
+	}
+	
 	@Test
 	void test() {
 		
