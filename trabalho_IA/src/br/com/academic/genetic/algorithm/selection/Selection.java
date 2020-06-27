@@ -4,7 +4,7 @@ import java.util.Collection;
 
 public final class Selection {
 
-	public static <T> Collection<T> select(Collection<T> collection, SelectionAlgorithm<T> algorithm) {
+	public static <T> Collection<T> selectHalf(Collection<T> collection, SelectionAlgorithm<T> algorithm) {
 		return algorithm.select(collection);
 	}
 	

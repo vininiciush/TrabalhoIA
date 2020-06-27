@@ -12,7 +12,7 @@ import br.com.academic.genetic.algorithm.fitness.EvaluateFitness;
 public class Roulette<T extends EvaluateFitness> implements SelectionAlgorithm<T> {
 
 	private Map<T, List<Double>> relativeAptitude = new HashMap<>();
-	private double agora = 0.0;
+	private double remaining = 0.0;
 
 	@Override
 	public Collection<T> select(Collection<T> collection) {
@@ -45,8 +45,8 @@ public class Roulette<T extends EvaluateFitness> implements SelectionAlgorithm<T
 
 		collection.forEach(i -> {
 			List<Double> properties = new ArrayList<>();
-			properties.add(agora);
-			properties.add(agora += i.getFitnessValue() / sum);
+			properties.add(remaining);
+			properties.add(remaining += i.getFitnessValue() / sum);
 			properties.add(i.getFitnessValue() / sum);
 			
 			relativeAptitude.put(i, properties);

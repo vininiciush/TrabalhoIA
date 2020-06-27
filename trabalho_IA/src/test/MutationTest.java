@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import br.com.academic.genetic.algorithm.generator.IndividualGenerator;
@@ -16,6 +17,13 @@ import br.com.academic.genetic.model.Individual;
 
 class MutationTest {
 
+	@BeforeAll
+	static void header() {
+		System.out.println("####################");
+		System.out.println("### MutationTest ###");
+		System.out.println("####################");
+	}
+	
 	@Test
 	void test() {
 		List<Individual> originalList = PopulationGenerator.generate(1, new IndividualGenerator());
