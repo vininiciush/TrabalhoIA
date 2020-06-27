@@ -83,26 +83,6 @@ public class Individual implements EvaluateFitness, Breeder<Individual>, Mutant 
 
 		return new Individual(newProducts);
 	}
-
-//	@Override
-//	public void mutate(int mutationsNumber) {
-//		int size = products.size();
-//		Random random = new Random();
-//		List<Integer> indexes = new ArrayList<>();
-//
-//		for (int i = 0; i < mutationsNumber; i++) {
-//			indexes.add(random.nextInt(size));
-//		}
-//
-//		indexes.forEach(i -> {
-//			products.get(i).invertState();
-//			
-//			if (!evaluate()) {
-//				products.get(i).invertState();
-//				evaluate();
-//			}
-//		});
-//	}
 	
 	@Override
 	public void mutate(int mutationsNumber) {
