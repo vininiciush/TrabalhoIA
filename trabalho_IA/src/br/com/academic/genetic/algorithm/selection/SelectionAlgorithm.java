@@ -6,4 +6,5 @@ public interface SelectionAlgorithm<T> {
 
 	Collection<T> select(Collection<T> collection);
 
+	Collection<T> select(Collection<T> collection, int qtd);
 }
