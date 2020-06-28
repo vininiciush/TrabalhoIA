@@ -1,5 +1,7 @@
 package br.com.academic.genetic.view;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -16,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import br.com.academic.genetic.algorithm.fitness.Fitness;
@@ -112,8 +115,9 @@ public class Mutation_View extends JFrame {
 		GenerateTable(table);
 		GenerateTable(table2);
 		setIndividuals(individuals,table);
-		Mutate(individuals,1);
+		Mutate(individuals,3);
 		setIndividuals(individuals, table2);
+		TableColor(table, table2);
 	}
 	
 	public void GenerateTable(JTable table) {
@@ -168,5 +172,31 @@ public class Mutation_View extends JFrame {
 			final_View.setVisible(true);
 		}
 		this.setVisible(false);
+	}
+	
+	private void TableColor(JTable table1, JTable table2) {
+		
+		table2.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+			@Override
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int column) {
+				
+				Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+				
+				String valorT1 = (String) table1.getValueAt(row, column);
+				String valorT2 = (String) table2.getValueAt(row, column);
+				
+				if(!valorT1.equals(valorT2) && column != 14) {
+					cell.setBackground(Color.RED);
+					cell.setForeground(Color.BLACK);
+				}
+				else {
+					cell.setBackground(Color.WHITE);
+					cell.setForeground(Color.BLACK);
+				}
+				return this;
+			}
+		});
+		
 	}
 }
