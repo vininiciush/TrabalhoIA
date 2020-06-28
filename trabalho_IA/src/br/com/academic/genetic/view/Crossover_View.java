@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import br.com.academic.genetic.algorithm.BestResult;
@@ -26,6 +27,8 @@ import br.com.academic.genetic.model.Individual;
 import br.com.academic.genetic.model.IndividualProduct;
 
 import javax.swing.JLabel;
+
+import java.awt.Color;
 import java.awt.Component;
 
 public class Crossover_View extends JFrame {
@@ -141,6 +144,8 @@ public class Crossover_View extends JFrame {
 		selecionados_prox_passo.addAll(individuals_cross);
 		//Selecionando melhores
 		this.individuals = (List<Individual>) BestResult.best(selecionados_prox_passo, individuals.size(), false);
+		MarcaSelected(table, table3, this.individuals);
+		TableColor(table, table3);
 	}
 	
 	public void GenerateTable(JTable table) {
@@ -150,13 +155,16 @@ public class Crossover_View extends JFrame {
 		
 		String[] columns = {"Geladeira Dako", "Notebook Dell", "Microondas Panasonic", "Notebook Asus", "Iphone 6", "Ventilador Panasonic",
 							"Geladeira Brastemp", "Tv 55\'", "Tv 50\'", "Microondas Eletrolux", "Geladeira Consul", "Tv 42\'", "Microondas LG",
-							"Notebook Lenovo", "Fitness"}; 
+							"Notebook Lenovo", "Fitness", "Selected"}; 
 		
 		model.setColumnIdentifiers(columns);
 		
 		model.setRowCount(0);
 		
 		table.setModel(model);
+		
+		table.getColumnModel().getColumn(15).setMinWidth(0);
+		table.getColumnModel().getColumn(15).setMaxWidth(0);
 	}
 	
 	private void setIndividuals(List<Individual> individuals, JTable table) {
@@ -193,5 +201,75 @@ public class Crossover_View extends JFrame {
 		Mutation_View mutation_View = new Mutation_View(generation, this.individuals);
 		mutation_View.setVisible(true);
 		this.setVisible(false);
+	}
+	
+	private void TableColor(JTable table1, JTable table2) {
+		
+		table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+			@Override
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int column) {
+				
+				Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+				
+				String ok = (String) table.getValueAt(row, 15);
+				
+				if(ok.equals("1")) {
+					cell.setBackground(Color.GREEN);
+					cell.setForeground(Color.BLACK);
+				}else {
+					cell.setBackground(Color.RED);
+					cell.setForeground(Color.BLACK);
+				}
+				return this;
+			}
+		});
+		
+		table2.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+			@Override
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int column) {
+				
+				Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+				
+				String ok = (String) table3.getValueAt(row, 15);
+				
+				if(ok.equals("1")) {
+					cell.setBackground(Color.GREEN);
+					cell.setForeground(Color.BLACK);
+				}else {
+					cell.setBackground(Color.RED);
+					cell.setForeground(Color.BLACK);
+				}
+				return this;
+			}
+		});
+	}
+	
+	private void MarcaSelected(JTable table, JTable table2, List<Individual> individuals) {
+		DecimalFormat format = new DecimalFormat("#.##");
+		ArrayList<Double> values = new ArrayList<Double>();
+		for(Individual individual: individuals) 
+			values.add(Double.parseDouble(format.format(individual.getFitnessValue()).replaceAll(",", ".")));
+	
+		for(int x = 0; x < table.getRowCount(); x++) {
+			Double valor = Double.parseDouble(((String)table.getValueAt(x, 14)).replaceAll(",", "."));
+			if(values.contains(valor)) {
+				table.setValueAt("1", x, 15);
+				values.remove(values.indexOf(valor));
+			}else {
+				table.setValueAt("0", x, 15);
+			}
+		}
+		
+		for(int x = 0; x < table2.getRowCount(); x++) {
+			Double valor = Double.parseDouble(((String)table2.getValueAt(x, 14)).replaceAll(",", "."));
+			if(values.contains(valor)) {
+				table2.setValueAt("1", x, 15);
+				values.remove(values.indexOf(valor));
+			}else {
+				table2.setValueAt("0", x, 15);
+			}
+		}
 	}
 }
