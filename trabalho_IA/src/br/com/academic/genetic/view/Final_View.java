@@ -95,7 +95,7 @@ public class Final_View extends JFrame {
 				CallMainWindow();
 			}
 		});
-		btnReiniciar.setBounds(1377, 450, 117, 25);
+		btnReiniciar.setBounds(1377, 450, 111, 25);
 		contentPane.add(btnReiniciar);
 	}
 	

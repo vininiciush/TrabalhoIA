@@ -22,9 +22,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import br.com.academic.genetic.algorithm.GeneticAlgorithm;
 import br.com.academic.genetic.algorithm.fitness.Fitness;
 import br.com.academic.genetic.model.Individual;
 import br.com.academic.genetic.model.IndividualProduct;
+import main.Session;
+
 import javax.swing.JLabel;
 
 public class Fitness_View extends JFrame {
@@ -93,6 +96,15 @@ public class Fitness_View extends JFrame {
 		lblIndividuos.setBounds(12, 8, 83, 15);
 		contentPane.add(lblIndividuos);
 		
+		JButton btnFinalizar = new JButton("Finalizar");
+		btnFinalizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				callFinalWindow();
+			}
+		});
+		btnFinalizar.setBounds(1377, 56, 111, 25);
+		contentPane.add(btnFinalizar);
+		
 		GenerateTable();
 		setIndividuals(individuals);
 
@@ -135,6 +147,11 @@ public class Fitness_View extends JFrame {
 	private void callCrossoverWindow() {
 		Crossover_View crossover_View = new Crossover_View(generation, individuals);
 		crossover_View.setVisible(true);
+		this.setVisible(false);
+	}
+	
+	private void callFinalWindow() {
+		GeneticAlgorithm.Execute(generation, individuals, Session.getInstance().getNumGenerations());
 		this.setVisible(false);
 	}
 }
