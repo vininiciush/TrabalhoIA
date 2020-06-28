@@ -115,7 +115,8 @@ public class Mutation_View extends JFrame {
 		GenerateTable(table);
 		GenerateTable(table2);
 		setIndividuals(individuals,table);
-		Mutate(individuals,3);
+		if(generation %10 == 0)
+			Mutate(individuals,3);
 		setIndividuals(individuals, table2);
 		TableColor(table, table2);
 	}
