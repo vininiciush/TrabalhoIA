@@ -1,7 +1,5 @@
 package br.com.academic.genetic.view;
 
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -9,38 +7,30 @@ import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 
-import br.com.academic.genetic.algorithm.GeneticAlgorithm;
+import br.com.academic.genetic.algorithm.BestResult;
 import br.com.academic.genetic.algorithm.fitness.Fitness;
 import br.com.academic.genetic.model.Individual;
 import br.com.academic.genetic.model.IndividualProduct;
-import main.Session;
 
-import javax.swing.JLabel;
-
-public class Fitness_View extends JFrame {
+public class Final_View extends JFrame {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6396594185887227610L;
+	private static final long serialVersionUID = 6261979328255278090L;
 	private JPanel contentPane;
 	private JTable table;
-	private static List<Individual> individuals;
-	private Integer generation;
-
 	/**
 	 * Launch the application.
 	 */
@@ -48,7 +38,7 @@ public class Fitness_View extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Fitness_View frame = new Fitness_View(0,null);
+					Final_View frame = new Final_View(null, 0);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -60,10 +50,8 @@ public class Fitness_View extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Fitness_View(Integer generation, List<Individual> individuals) {
-		this.individuals = individuals;
-		this.generation = generation;
-		this.setTitle("Tela Fitness Geração "+generation);
+	public Final_View(List<Individual> individuals, int generation) {
+		this.setTitle("Tela Final Geração: "+generation);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1500, 549);
 		contentPane = new JPanel();
@@ -83,34 +71,35 @@ public class Fitness_View extends JFrame {
 		scroll.setBounds(12, 24, 1353, 488);
 		contentPane.add(scroll);
 		
-		JButton btnIniciar = new JButton("Proximo");
+		JButton btnIniciar = new JButton("Finalizar");
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				callCrossoverWindow();
+				Exit();
 			}
 		});
-		btnIniciar.setBounds(1377, 24, 111, 25);
+		btnIniciar.setBounds(1377, 487, 111, 25);
 		contentPane.add(btnIniciar);
 		
 		JLabel lblIndividuos = new JLabel("Individuos:");
 		lblIndividuos.setBounds(12, 8, 83, 15);
 		contentPane.add(lblIndividuos);
 		
-		JButton btnFinalizar = new JButton("Finalizar");
-		btnFinalizar.addActionListener(new ActionListener() {
+		GenerateTable(table);
+		List<Individual> best_Individual = new ArrayList<Individual>();
+		best_Individual.add(BestResult.best(individuals, false));
+		setIndividuals(best_Individual,table);
+		
+		JButton btnReiniciar = new JButton("Reiniciar");
+		btnReiniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				callFinalWindow();
+				CallMainWindow();
 			}
 		});
-		btnFinalizar.setBounds(1377, 56, 111, 25);
-		contentPane.add(btnFinalizar);
-		
-		GenerateTable();
-		setIndividuals(individuals);
-
+		btnReiniciar.setBounds(1377, 450, 111, 25);
+		contentPane.add(btnReiniciar);
 	}
 	
-	public void GenerateTable() {
+	public void GenerateTable(JTable table) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		
 		table.getTableHeader().setFont(new Font("SansSerif", Font.PLAIN, 9));
@@ -126,13 +115,14 @@ public class Fitness_View extends JFrame {
 		table.setModel(model);
 	}
 	
-	private void setIndividuals(List<Individual> individuals) {
+	private void setIndividuals(List<Individual> individuals, JTable table) {
 		
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		DecimalFormat format = new DecimalFormat("#.##");
 		Fitness.evaluate((Collection)individuals);
 		
 		for(Individual individual : individuals) {//Percorre os individuos
+			
 			ArrayList<String> individualString = new ArrayList<>();
 			
 			for(IndividualProduct individualProduct : individual.getProducts())//Percorre os produtos de cada individuo colocando seu estado no ArrayList
@@ -144,14 +134,13 @@ public class Fitness_View extends JFrame {
 		}
 	}
 	
-	private void callCrossoverWindow() {
-		Crossover_View crossover_View = new Crossover_View(generation, individuals);
-		crossover_View.setVisible(true);
-		this.setVisible(false);
+	private void Exit() {
+		System.exit(0);
 	}
 	
-	private void callFinalWindow() {
-		GeneticAlgorithm.Execute(generation, individuals, Session.getInstance().getNumGenerations());
+	private void CallMainWindow() {
+		Main_View main_View = new Main_View();
+		main_View.setVisible(true);
 		this.setVisible(false);
 	}
 }

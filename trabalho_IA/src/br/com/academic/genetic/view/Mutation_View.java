@@ -9,8 +9,8 @@ import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,26 +20,26 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 
-import br.com.academic.genetic.algorithm.GeneticAlgorithm;
 import br.com.academic.genetic.algorithm.fitness.Fitness;
+import br.com.academic.genetic.algorithm.mutation.Mutation;
 import br.com.academic.genetic.model.Individual;
 import br.com.academic.genetic.model.IndividualProduct;
 import main.Session;
 
 import javax.swing.JLabel;
 
-public class Fitness_View extends JFrame {
+public class Mutation_View extends JFrame {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6396594185887227610L;
+	private static final long serialVersionUID = -5684146745489996118L;
 	private JPanel contentPane;
+	private List<Individual> individuals;
+	private int generation;
 	private JTable table;
-	private static List<Individual> individuals;
-	private Integer generation;
+	private JTable table2;
 
 	/**
 	 * Launch the application.
@@ -48,7 +48,7 @@ public class Fitness_View extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Fitness_View frame = new Fitness_View(0,null);
+					Mutation_View frame = new Mutation_View(0,null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -60,10 +60,10 @@ public class Fitness_View extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Fitness_View(Integer generation, List<Individual> individuals) {
+	public Mutation_View(int generation, List<Individual> individuals) {
 		this.individuals = individuals;
 		this.generation = generation;
-		this.setTitle("Tela Fitness Geração "+generation);
+		this.setTitle("Tela Mutação Geração "+generation);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1500, 549);
 		contentPane = new JPanel();
@@ -80,37 +80,48 @@ public class Fitness_View extends JFrame {
 		table.setRowSelectionAllowed(true);
 		table.setBounds(12, 12, 303, 251);
 		JScrollPane scroll = new JScrollPane(table);
-		scroll.setBounds(12, 24, 1353, 488);
+		scroll.setBounds(12, 31, 1353, 220);
 		contentPane.add(scroll);
+		
+		table2 = new JTable() {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		
 		
 		JButton btnIniciar = new JButton("Proximo");
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				callCrossoverWindow();
+				CallFitnessWindow();
 			}
 		});
-		btnIniciar.setBounds(1377, 24, 111, 25);
+		btnIniciar.setBounds(1377, 31, 111, 25);
 		contentPane.add(btnIniciar);
 		
-		JLabel lblIndividuos = new JLabel("Individuos:");
-		lblIndividuos.setBounds(12, 8, 83, 15);
-		contentPane.add(lblIndividuos);
+		JScrollPane scroll_1 = new JScrollPane(table2);
+		scroll_1.setBounds(12, 286, 1353, 220);
+		contentPane.add(scroll_1);
 		
-		JButton btnFinalizar = new JButton("Finalizar");
-		btnFinalizar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				callFinalWindow();
-			}
-		});
-		btnFinalizar.setBounds(1377, 56, 111, 25);
-		contentPane.add(btnFinalizar);
+		JLabel lblIdividuosAtuais = new JLabel("Idividuos Atuais:");
+		lblIdividuosAtuais.setBounds(12, 13, 123, 15);
+		contentPane.add(lblIdividuosAtuais);
 		
-		GenerateTable();
-		setIndividuals(individuals);
-
+		JLabel lblIndividuosMutados = new JLabel("Individuos Mutados:");
+		lblIndividuosMutados.setBounds(12, 263, 150, 15);
+		contentPane.add(lblIndividuosMutados);
+		
+		GenerateTable(table);
+		GenerateTable(table2);
+		setIndividuals(individuals,table);
+		if(generation %10 == 0)
+			Mutate(individuals,3);
+		setIndividuals(individuals, table2);
+		TableColor(table, table2);
 	}
 	
-	public void GenerateTable() {
+	public void GenerateTable(JTable table) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		
 		table.getTableHeader().setFont(new Font("SansSerif", Font.PLAIN, 9));
@@ -126,7 +137,7 @@ public class Fitness_View extends JFrame {
 		table.setModel(model);
 	}
 	
-	private void setIndividuals(List<Individual> individuals) {
+	private void setIndividuals(List<Individual> individuals, JTable table) {
 		
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		DecimalFormat format = new DecimalFormat("#.##");
@@ -144,14 +155,49 @@ public class Fitness_View extends JFrame {
 		}
 	}
 	
-	private void callCrossoverWindow() {
-		Crossover_View crossover_View = new Crossover_View(generation, individuals);
-		crossover_View.setVisible(true);
+	private void Mutate(List<Individual> individuals, int numMutate) {
+		Random random = new Random();
+		for(int x = 0; x < numMutate; x++) {
+			Mutation.mutate(individuals.get(random.nextInt(individuals.size())), random.nextInt(3));
+		}
+	}
+	
+	private void CallFitnessWindow() {
+		Session session = Session.getInstance();
+		if(session.getNumGenerations() != generation) {
+			Fitness_View fitness_View = new Fitness_View(generation+1,this.individuals);
+			fitness_View.setVisible(true);
+		}
+		else {
+			Final_View final_View = new Final_View(this.individuals, generation);
+			final_View.setVisible(true);
+		}
 		this.setVisible(false);
 	}
 	
-	private void callFinalWindow() {
-		GeneticAlgorithm.Execute(generation, individuals, Session.getInstance().getNumGenerations());
-		this.setVisible(false);
+	private void TableColor(JTable table1, JTable table2) {
+		
+		table2.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+			@Override
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int column) {
+				
+				Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+				
+				String valorT1 = (String) table1.getValueAt(row, column);
+				String valorT2 = (String) table2.getValueAt(row, column);
+				
+				if(!valorT1.equals(valorT2) && column != 14) {
+					cell.setBackground(Color.RED);
+					cell.setForeground(Color.BLACK);
+				}
+				else {
+					cell.setBackground(Color.WHITE);
+					cell.setForeground(Color.BLACK);
+				}
+				return this;
+			}
+		});
+		
 	}
 }

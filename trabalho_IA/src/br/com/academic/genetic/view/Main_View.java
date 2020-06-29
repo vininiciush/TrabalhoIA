@@ -17,6 +17,7 @@ import br.com.academic.genetic.model.Individual;
 import br.com.academic.genetic.model.IndividualProduct;
 import br.com.academic.genetic.model.ProductStatus;
 import br.com.academic.genetic.service.ProductsFlyWeight;
+import main.Session;
 
 import javax.swing.JTable;
 import javax.swing.SpinnerModel;
@@ -50,6 +51,7 @@ public class Main_View extends JFrame {
 	private JTable table;
 	private static final Integer INDIVIDUOS = 6;
 	private JSpinner spinner;
+	private JSpinner spinner_1;
 
 	/**
 	 * Launch the application.
@@ -80,7 +82,7 @@ public class Main_View extends JFrame {
 		contentPane.setLayout(null);
 		
 		table = new JTable();
-		table.setRowSelectionAllowed(false);
+		table.setRowSelectionAllowed(true);
 		table.setBounds(12, 12, 303, 251);
 		JScrollPane scroll = new JScrollPane(table);
 		scroll.setBounds(12, 8, 1353, 504);
@@ -108,7 +110,7 @@ public class Main_View extends JFrame {
 		lblNIndividuos.setBounds(1377, 82, 101, 15);
 		contentPane.add(lblNIndividuos);
 		
-		SpinnerModel sm = new SpinnerNumberModel((int)INDIVIDUOS, 2, 20, 1); //default value,lower bound,upper bound,increment by
+		SpinnerModel sm = new SpinnerNumberModel((int)INDIVIDUOS, 4, 20, 1); //default value,lower bound,upper bound,increment by
 		spinner = new JSpinner(sm);
 		JComponent comp = spinner.getEditor();
 	    JFormattedTextField field = (JFormattedTextField) comp.getComponent(0);
@@ -122,6 +124,15 @@ public class Main_View extends JFrame {
 		});
 		spinner.setBounds(1377, 99, 101, 20);
 		contentPane.add(spinner);
+		
+		JLabel lblNGeraes = new JLabel("Nº Gerações:");
+		lblNGeraes.setBounds(1377, 130, 101, 15);
+		contentPane.add(lblNGeraes);
+		
+		SpinnerModel snm = new SpinnerNumberModel(10, 1, 100, 1); //default value,lower bound,upper bound,increment by
+		spinner_1 = new JSpinner(snm);
+		spinner_1.setBounds(1377, 149, 101, 20);
+		contentPane.add(spinner_1);
 		
 		GenerateTable();
 	}
@@ -162,6 +173,8 @@ public class Main_View extends JFrame {
 	}
 	
 	private void CallFitnessWindow() {
+		Session session = Session.getInstance();
+		session.setNumGenerations((int)spinner_1.getValue());
 		List<Individual> individuals = getIndividualList();
 		if(individuals != null) {
 			Fitness_View fitness_view = new Fitness_View(1,individuals);
