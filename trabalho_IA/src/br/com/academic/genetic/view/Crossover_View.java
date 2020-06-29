@@ -67,7 +67,7 @@ public class Crossover_View extends JFrame {
 		this.generation = generation;
 		this.setTitle("Tela Crossover Geração "+generation);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1500, 582);
+		setBounds(100, 100, 1250, 613);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -93,7 +93,7 @@ public class Crossover_View extends JFrame {
 		table.setRowSelectionAllowed(true);
 		table.setBounds(12, 12, 303, 251);
 		JScrollPane scroll = new JScrollPane(table);
-		scroll.setBounds(12, 29, 1353, 152);
+		scroll.setBounds(12, 29, 1226, 152);
 		contentPane.add(scroll);
 		
 		JButton btnIniciar = new JButton("Proximo");
@@ -102,7 +102,7 @@ public class Crossover_View extends JFrame {
 				CallMutatuionWindow();
 			}
 		});
-		btnIniciar.setBounds(1377, 29, 111, 25);
+		btnIniciar.setBounds(1127, 557, 111, 25);
 		contentPane.add(btnIniciar);
 		
 		JLabel lblPopulaoOriginal = new JLabel("População Original:");
@@ -114,7 +114,7 @@ public class Crossover_View extends JFrame {
 		contentPane.add(lblIndividuosSelecionadosPara);
 		
 		JScrollPane scroll_1 = new JScrollPane(table2);
-		scroll_1.setBounds(12, 209, 1353, 152);
+		scroll_1.setBounds(12, 209, 1226, 152);
 		contentPane.add(scroll_1);
 		
 		JLabel lblIndividuosGeradosPelo = new JLabel("Individuos gerados pelo Crossover:");
@@ -122,7 +122,7 @@ public class Crossover_View extends JFrame {
 		contentPane.add(lblIndividuosGeradosPelo);
 		
 		JScrollPane scroll_1_1 = new JScrollPane(table3);
-		scroll_1_1.setBounds(12, 393, 1353, 152);
+		scroll_1_1.setBounds(12, 393, 1226, 152);
 		contentPane.add(scroll_1_1);
 		//Gerando cabeçario das tables
 		GenerateTable(table);
@@ -163,6 +163,14 @@ public class Crossover_View extends JFrame {
 		
 		table.setModel(model);
 		
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		
+		for(int i = 0; i < table.getColumnCount()-2; i++) {
+			table.getColumnModel().getColumn(i).setMaxWidth(82);
+			table.getColumnModel().getColumn(i).setMinWidth(82);
+		}
+		table.getColumnModel().getColumn(14).setMinWidth(75);
+		table.getColumnModel().getColumn(14).setMaxWidth(75);
 		table.getColumnModel().getColumn(15).setMinWidth(0);
 		table.getColumnModel().getColumn(15).setMaxWidth(0);
 	}
@@ -218,7 +226,7 @@ public class Crossover_View extends JFrame {
 					cell.setBackground(Color.GREEN);
 					cell.setForeground(Color.BLACK);
 				}else {
-					cell.setBackground(Color.RED);
+					cell.setBackground(Color.WHITE);
 					cell.setForeground(Color.BLACK);
 				}
 				return this;
@@ -238,7 +246,7 @@ public class Crossover_View extends JFrame {
 					cell.setBackground(Color.GREEN);
 					cell.setForeground(Color.BLACK);
 				}else {
-					cell.setBackground(Color.RED);
+					cell.setBackground(Color.WHITE);
 					cell.setForeground(Color.BLACK);
 				}
 				return this;

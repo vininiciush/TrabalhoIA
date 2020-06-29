@@ -65,7 +65,7 @@ public class Fitness_View extends JFrame {
 		this.generation = generation;
 		this.setTitle("Tela Fitness Geração "+generation);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1500, 549);
+		setBounds(100, 100, 1250, 617);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -80,7 +80,7 @@ public class Fitness_View extends JFrame {
 		table.setRowSelectionAllowed(true);
 		table.setBounds(12, 12, 303, 251);
 		JScrollPane scroll = new JScrollPane(table);
-		scroll.setBounds(12, 24, 1353, 488);
+		scroll.setBounds(12, 24, 1226, 519);
 		contentPane.add(scroll);
 		
 		JButton btnIniciar = new JButton("Proximo");
@@ -89,7 +89,7 @@ public class Fitness_View extends JFrame {
 				callCrossoverWindow();
 			}
 		});
-		btnIniciar.setBounds(1377, 24, 111, 25);
+		btnIniciar.setBounds(1127, 555, 111, 25);
 		contentPane.add(btnIniciar);
 		
 		JLabel lblIndividuos = new JLabel("Individuos:");
@@ -102,7 +102,7 @@ public class Fitness_View extends JFrame {
 				callFinalWindow();
 			}
 		});
-		btnFinalizar.setBounds(1377, 56, 111, 25);
+		btnFinalizar.setBounds(1003, 555, 111, 25);
 		contentPane.add(btnFinalizar);
 		
 		GenerateTable();
@@ -124,6 +124,15 @@ public class Fitness_View extends JFrame {
 		model.setRowCount(0);
 		
 		table.setModel(model);
+		
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		
+		for(int i = 0; i < table.getColumnCount()-1; i++) {
+			table.getColumnModel().getColumn(i).setMinWidth(81);
+			table.getColumnModel().getColumn(i).setMaxWidth(81);
+		}
+		table.getColumnModel().getColumn(14).setMinWidth(89);
+		table.getColumnModel().getColumn(14).setMaxWidth(89);
 	}
 	
 	private void setIndividuals(List<Individual> individuals) {

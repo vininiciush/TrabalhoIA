@@ -53,7 +53,7 @@ public class Final_View extends JFrame {
 	public Final_View(List<Individual> individuals, int generation) {
 		this.setTitle("Tela Final Geração: "+generation);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1500, 549);
+		setBounds(100, 100, 1250, 587);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -68,7 +68,7 @@ public class Final_View extends JFrame {
 		table.setRowSelectionAllowed(true);
 		table.setBounds(12, 12, 303, 251);
 		JScrollPane scroll = new JScrollPane(table);
-		scroll.setBounds(12, 24, 1353, 488);
+		scroll.setBounds(12, 24, 1226, 488);
 		contentPane.add(scroll);
 		
 		JButton btnIniciar = new JButton("Finalizar");
@@ -77,7 +77,7 @@ public class Final_View extends JFrame {
 				Exit();
 			}
 		});
-		btnIniciar.setBounds(1377, 487, 111, 25);
+		btnIniciar.setBounds(1127, 524, 111, 25);
 		contentPane.add(btnIniciar);
 		
 		JLabel lblIndividuos = new JLabel("Individuos:");
@@ -95,7 +95,7 @@ public class Final_View extends JFrame {
 				CallMainWindow();
 			}
 		});
-		btnReiniciar.setBounds(1377, 450, 111, 25);
+		btnReiniciar.setBounds(1004, 524, 111, 25);
 		contentPane.add(btnReiniciar);
 	}
 	

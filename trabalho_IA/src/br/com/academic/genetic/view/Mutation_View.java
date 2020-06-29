@@ -65,7 +65,7 @@ public class Mutation_View extends JFrame {
 		this.generation = generation;
 		this.setTitle("Tela Mutação Geração "+generation);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1500, 549);
+		setBounds(100, 100, 1250, 616);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -80,7 +80,7 @@ public class Mutation_View extends JFrame {
 		table.setRowSelectionAllowed(true);
 		table.setBounds(12, 12, 303, 251);
 		JScrollPane scroll = new JScrollPane(table);
-		scroll.setBounds(12, 31, 1353, 220);
+		scroll.setBounds(12, 31, 1226, 233);
 		contentPane.add(scroll);
 		
 		table2 = new JTable() {
@@ -97,11 +97,11 @@ public class Mutation_View extends JFrame {
 				CallFitnessWindow();
 			}
 		});
-		btnIniciar.setBounds(1377, 31, 111, 25);
+		btnIniciar.setBounds(1127, 554, 111, 25);
 		contentPane.add(btnIniciar);
 		
 		JScrollPane scroll_1 = new JScrollPane(table2);
-		scroll_1.setBounds(12, 286, 1353, 220);
+		scroll_1.setBounds(12, 303, 1226, 239);
 		contentPane.add(scroll_1);
 		
 		JLabel lblIdividuosAtuais = new JLabel("Idividuos Atuais:");
@@ -109,13 +109,13 @@ public class Mutation_View extends JFrame {
 		contentPane.add(lblIdividuosAtuais);
 		
 		JLabel lblIndividuosMutados = new JLabel("Individuos Mutados:");
-		lblIndividuosMutados.setBounds(12, 263, 150, 15);
+		lblIndividuosMutados.setBounds(12, 276, 150, 15);
 		contentPane.add(lblIndividuosMutados);
 		
 		GenerateTable(table);
 		GenerateTable(table2);
 		setIndividuals(individuals,table);
-		if(generation %10 == 0)
+		if(generation %Session.getInstance().getMutationFreq() == 0)
 			Mutate(individuals,3);
 		setIndividuals(individuals, table2);
 		TableColor(table, table2);
