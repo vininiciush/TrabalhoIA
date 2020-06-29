@@ -78,7 +78,7 @@ public class Main_View extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1250, 549);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -86,7 +86,7 @@ public class Main_View extends JFrame {
 		table.setRowSelectionAllowed(true);
 		table.setBounds(12, 12, 303, 251);
 		JScrollPane scroll = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scroll.setBounds(12, 8, 1103, 504);
+		scroll.setBounds(12, 8, 1097, 504);
 		contentPane.add(scroll);
 		
 		JButton btnIndividuosAleatorios = new JButton("Random");
@@ -95,7 +95,7 @@ public class Main_View extends JFrame {
 				GerarAleatorios();
 			}
 		});
-		btnIndividuosAleatorios.setBounds(1127, 4, 111, 25);
+		btnIndividuosAleatorios.setBounds(1125, 8, 107, 25);
 		contentPane.add(btnIndividuosAleatorios);
 		
 		JButton btnIniciar = new JButton("Iniciar");
@@ -104,11 +104,11 @@ public class Main_View extends JFrame {
 				CallFitnessWindow();
 			}
 		});
-		btnIniciar.setBounds(1127, 41, 111, 25);
+		btnIniciar.setBounds(1125, 45, 107, 25);
 		contentPane.add(btnIniciar);
 		
 		JLabel lblNIndividuos = new JLabel("Nº Individuos:");
-		lblNIndividuos.setBounds(1127, 115, 101, 15);
+		lblNIndividuos.setBounds(1121, 119, 111, 15);
 		contentPane.add(lblNIndividuos);
 		
 		SpinnerModel sm = new SpinnerNumberModel((int)INDIVIDUOS, 4, 20, 1); //default value,lower bound,upper bound,increment by
@@ -123,25 +123,25 @@ public class Main_View extends JFrame {
 				model.setRowCount((int) spinner.getValue());
 			}
 		});
-		spinner.setBounds(1127, 134, 111, 20);
+		spinner.setBounds(1121, 138, 111, 20);
 		contentPane.add(spinner);
 		
 		JLabel lblNGeraes = new JLabel("Nº Gerações:");
-		lblNGeraes.setBounds(1127, 166, 101, 15);
+		lblNGeraes.setBounds(1121, 170, 111, 15);
 		contentPane.add(lblNGeraes);
 		
 		SpinnerModel snm = new SpinnerNumberModel(10, 1, 100, 1); //default value,lower bound,upper bound,increment by
 		spinner_1 = new JSpinner(snm);
-		spinner_1.setBounds(1127, 183, 111, 20);
+		spinner_1.setBounds(1121, 187, 111, 20);
 		contentPane.add(spinner_1);
 		
 		JLabel lblMutaesFrequencai = new JLabel("Freq Mutações:");
-		lblMutaesFrequencai.setBounds(1127, 215, 111, 15);
+		lblMutaesFrequencai.setBounds(1121, 221, 111, 15);
 		contentPane.add(lblMutaesFrequencai);
 		
 		SpinnerModel snn = new SpinnerNumberModel(1, 1, 100, 1); //default value,lower bound,upper bound,increment by
 		spinner_2 = new JSpinner(snn);
-		spinner_2.setBounds(1127, 234, 111, 20);
+		spinner_2.setBounds(1121, 238, 111, 20);
 		contentPane.add(spinner_2);
 		
 		JButton btnVerIndividuos = new JButton("Individuos");
@@ -151,7 +151,7 @@ public class Main_View extends JFrame {
 				allIndividuos.setVisible(true);
 			}
 		});
-		btnVerIndividuos.setBounds(1127, 78, 111, 25);
+		btnVerIndividuos.setBounds(1125, 82, 107, 25);
 		contentPane.add(btnVerIndividuos);
 		
 		GenerateTable();
