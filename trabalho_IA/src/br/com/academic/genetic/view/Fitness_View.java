@@ -64,9 +64,11 @@ public class Fitness_View extends JFrame {
 		this.individuals = individuals;
 		this.generation = generation;
 		this.setTitle("Tela Fitness Geração "+generation);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1255, 622);
 		contentPane = new JPanel();
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -133,6 +135,7 @@ public class Fitness_View extends JFrame {
 		}
 		table.getColumnModel().getColumn(14).setMinWidth(87);
 		table.getColumnModel().getColumn(14).setMaxWidth(87);
+		table.getTableHeader().setReorderingAllowed(false);
 	}
 	
 	private void setIndividuals(List<Individual> individuals) {

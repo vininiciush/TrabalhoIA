@@ -66,9 +66,11 @@ public class Crossover_View extends JFrame {
 		this.individuals = new ArrayList<Individual>();
 		this.generation = generation;
 		this.setTitle("Tela Crossover Geração "+generation);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1255, 623);
 		contentPane = new JPanel();
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -173,6 +175,7 @@ public class Crossover_View extends JFrame {
 		table.getColumnModel().getColumn(14).setMaxWidth(75);
 		table.getColumnModel().getColumn(15).setMinWidth(0);
 		table.getColumnModel().getColumn(15).setMaxWidth(0);
+		table.getTableHeader().setReorderingAllowed(false);
 	}
 	
 	private void setIndividuals(List<Individual> individuals, JTable table) {
