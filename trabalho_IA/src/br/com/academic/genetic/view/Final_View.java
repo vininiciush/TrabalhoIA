@@ -52,12 +52,14 @@ public class Final_View extends JFrame {
 	 */
 	public Final_View(List<Individual> individuals, int generation) {
 		this.setTitle("Tela Final Geração: "+generation);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1255, 592);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
 		
 		table = new JTable() {
 			@Override
@@ -88,15 +90,6 @@ public class Final_View extends JFrame {
 		List<Individual> best_Individual = new ArrayList<Individual>();
 		best_Individual.add(BestResult.best(individuals, false));
 		setIndividuals(best_Individual,table);
-		
-		JButton btnReiniciar = new JButton("Reiniciar");
-		btnReiniciar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CallMainWindow();
-			}
-		});
-		btnReiniciar.setBounds(1004, 524, 111, 25);
-		contentPane.add(btnReiniciar);
 	}
 	
 	public void GenerateTable(JTable table) {
@@ -111,6 +104,8 @@ public class Final_View extends JFrame {
 		model.setColumnIdentifiers(columns);
 		
 		model.setRowCount(0);
+		
+		table.getTableHeader().setReorderingAllowed(false);
 		
 		table.setModel(model);
 	}
@@ -135,12 +130,6 @@ public class Final_View extends JFrame {
 	}
 	
 	private void Exit() {
-		System.exit(0);
-	}
-	
-	private void CallMainWindow() {
-		Main_View main_View = new Main_View();
-		main_View.setVisible(true);
 		this.dispose();
 	}
 }

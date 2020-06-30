@@ -77,7 +77,8 @@ public class Main_View extends JFrame {
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
 		table = new JTable();
 		table.setRowSelectionAllowed(true);
 		table.setBounds(12, 12, 303, 251);
@@ -227,7 +228,6 @@ public class Main_View extends JFrame {
 		if(individuals != null) {
 			Fitness_View fitness_view = new Fitness_View(1,individuals);
 			fitness_view.setVisible(true);
-			this.dispose();
 		}
 	}
 	

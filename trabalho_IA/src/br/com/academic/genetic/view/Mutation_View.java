@@ -65,9 +65,11 @@ public class Mutation_View extends JFrame {
 		this.individuals = individuals;
 		this.generation = generation;
 		this.setTitle("Tela Mutação Geração "+generation);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1255, 621);
 		contentPane = new JPanel();
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -149,6 +151,8 @@ public class Mutation_View extends JFrame {
 		model.setColumnIdentifiers(columns);
 		
 		model.setRowCount(0);
+		
+		table.getTableHeader().setReorderingAllowed(false);
 		
 		table.setModel(model);
 	}
