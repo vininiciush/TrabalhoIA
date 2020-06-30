@@ -137,7 +137,7 @@ public class Main_View extends JFrame {
 		lblMutaesFrequencai.setBounds(1121, 262, 111, 15);
 		contentPane.add(lblMutaesFrequencai);
 		
-		SpinnerModel snn = new SpinnerNumberModel(1, 1, 100, 1); //default value,lower bound,upper bound,increment by
+		SpinnerModel snn = new SpinnerNumberModel(10, 1, 100, 1); //default value,lower bound,upper bound,increment by
 		spinner_2 = new JSpinner(snn);
 		spinner_2.setBounds(1121, 304, 111, 20);
 		contentPane.add(spinner_2);
