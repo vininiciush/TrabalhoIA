@@ -53,7 +53,7 @@ public class Final_View extends JFrame {
 	public Final_View(List<Individual> individuals, int generation) {
 		this.setTitle("Tela Final Geração: "+generation);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1250, 587);
+		setBounds(100, 100, 1255, 592);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		setContentPane(contentPane);
@@ -141,6 +141,6 @@ public class Final_View extends JFrame {
 	private void CallMainWindow() {
 		Main_View main_View = new Main_View();
 		main_View.setVisible(true);
-		this.setVisible(false);
+		this.dispose();
 	}
 }
