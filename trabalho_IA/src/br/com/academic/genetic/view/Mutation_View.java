@@ -28,6 +28,7 @@ import br.com.academic.genetic.model.IndividualProduct;
 import main.Session;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class Mutation_View extends JFrame {
 
@@ -65,7 +66,7 @@ public class Mutation_View extends JFrame {
 		this.generation = generation;
 		this.setTitle("Tela Mutação Geração "+generation);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1250, 616);
+		setBounds(100, 100, 1255, 621);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		setContentPane(contentPane);
@@ -119,6 +120,21 @@ public class Mutation_View extends JFrame {
 			Mutate(individuals,3);
 		setIndividuals(individuals, table2);
 		TableColor(table, table2);
+		
+		JButton btnExecutarMutao = new JButton("Executar Mutação");
+		btnExecutarMutao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(CompareTables(table, table2)) {
+					Mutate(individuals,3);
+					setIndividuals(individuals, table2);
+				}else {
+					JOptionPane.showMessageDialog(null, "Uma mutação já ocorreu");
+					
+				}
+			}
+		});
+		btnExecutarMutao.setBounds(955, 554, 160, 25);
+		contentPane.add(btnExecutarMutao);
 	}
 	
 	public void GenerateTable(JTable table) {
@@ -142,6 +158,7 @@ public class Mutation_View extends JFrame {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		DecimalFormat format = new DecimalFormat("#.##");
 		Fitness.evaluate((Collection)individuals);
+		model.setRowCount(0);
 		
 		for(Individual individual : individuals) {//Percorre os individuos
 			ArrayList<String> individualString = new ArrayList<>();
@@ -172,7 +189,7 @@ public class Mutation_View extends JFrame {
 			Final_View final_View = new Final_View(this.individuals, generation);
 			final_View.setVisible(true);
 		}
-		this.setVisible(false);
+		this.dispose();
 	}
 	
 	private void TableColor(JTable table1, JTable table2) {
@@ -198,6 +215,21 @@ public class Mutation_View extends JFrame {
 				return this;
 			}
 		});
+	}
+	
+	private Boolean CompareTables(JTable table1, JTable table2) {
+		if(!(table1.getColumnCount() == table2.getColumnCount()) || !(table1.getRowCount() == table2.getRowCount())) 
+			return false;
 		
+		for(int i = 0; i < table1.getRowCount(); i++) {
+			for(int x = 0; x < table1.getColumnCount(); x++) {
+				String value1 = (String) table1.getValueAt(i, x);
+				String value2 = (String) table2.getValueAt(i, x);
+				if(!value1.equals(value2)) {
+					return false;
+				}
+			}
+		}	
+		return true;	
 	}
 }

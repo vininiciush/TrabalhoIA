@@ -67,7 +67,7 @@ public class Crossover_View extends JFrame {
 		this.generation = generation;
 		this.setTitle("Tela Crossover Geração "+generation);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1250, 613);
+		setBounds(100, 100, 1255, 623);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		setContentPane(contentPane);
@@ -208,7 +208,7 @@ public class Crossover_View extends JFrame {
 	private void CallMutatuionWindow() {
 		Mutation_View mutation_View = new Mutation_View(generation, this.individuals);
 		mutation_View.setVisible(true);
-		this.setVisible(false);
+		this.dispose();
 	}
 	
 	private void TableColor(JTable table1, JTable table2) {

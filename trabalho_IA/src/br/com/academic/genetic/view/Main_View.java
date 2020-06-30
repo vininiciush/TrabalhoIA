@@ -32,14 +32,10 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 public class Main_View extends JFrame {
 
@@ -76,7 +72,7 @@ public class Main_View extends JFrame {
 	public Main_View() {
 		this.setTitle("Seleção de individuos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1250, 549);
+		setBounds(100, 100, 1255, 549);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		setContentPane(contentPane);
@@ -86,7 +82,7 @@ public class Main_View extends JFrame {
 		table.setRowSelectionAllowed(true);
 		table.setBounds(12, 12, 303, 251);
 		JScrollPane scroll = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scroll.setBounds(12, 8, 1097, 504);
+		scroll.setBounds(12, 77, 1097, 435);
 		contentPane.add(scroll);
 		
 		JButton btnIndividuosAleatorios = new JButton("Random");
@@ -95,7 +91,7 @@ public class Main_View extends JFrame {
 				GerarAleatorios();
 			}
 		});
-		btnIndividuosAleatorios.setBounds(1125, 8, 107, 25);
+		btnIndividuosAleatorios.setBounds(1121, 25, 107, 25);
 		contentPane.add(btnIndividuosAleatorios);
 		
 		JButton btnIniciar = new JButton("Iniciar");
@@ -104,11 +100,11 @@ public class Main_View extends JFrame {
 				CallFitnessWindow();
 			}
 		});
-		btnIniciar.setBounds(1125, 45, 107, 25);
+		btnIniciar.setBounds(1121, 62, 107, 25);
 		contentPane.add(btnIniciar);
 		
 		JLabel lblNIndividuos = new JLabel("Nº Individuos:");
-		lblNIndividuos.setBounds(1121, 119, 111, 15);
+		lblNIndividuos.setBounds(1121, 160, 111, 15);
 		contentPane.add(lblNIndividuos);
 		
 		SpinnerModel sm = new SpinnerNumberModel((int)INDIVIDUOS, 4, 20, 1); //default value,lower bound,upper bound,increment by
@@ -123,36 +119,56 @@ public class Main_View extends JFrame {
 				model.setRowCount((int) spinner.getValue());
 			}
 		});
-		spinner.setBounds(1121, 138, 111, 20);
+		spinner.setBounds(1121, 179, 111, 20);
 		contentPane.add(spinner);
 		
 		JLabel lblNGeraes = new JLabel("Nº Gerações:");
-		lblNGeraes.setBounds(1121, 170, 111, 15);
+		lblNGeraes.setBounds(1121, 211, 111, 15);
 		contentPane.add(lblNGeraes);
 		
 		SpinnerModel snm = new SpinnerNumberModel(10, 1, 100, 1); //default value,lower bound,upper bound,increment by
 		spinner_1 = new JSpinner(snm);
-		spinner_1.setBounds(1121, 187, 111, 20);
+		spinner_1.setBounds(1121, 228, 111, 20);
 		contentPane.add(spinner_1);
 		
-		JLabel lblMutaesFrequencai = new JLabel("Freq Mutações:");
-		lblMutaesFrequencai.setBounds(1121, 221, 111, 15);
+		JLabel lblMutaesFrequencai = new JLabel("Mutação");
+		lblMutaesFrequencai.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMutaesFrequencai.setBounds(1121, 262, 111, 15);
 		contentPane.add(lblMutaesFrequencai);
 		
 		SpinnerModel snn = new SpinnerNumberModel(1, 1, 100, 1); //default value,lower bound,upper bound,increment by
 		spinner_2 = new JSpinner(snn);
-		spinner_2.setBounds(1121, 238, 111, 20);
+		spinner_2.setBounds(1121, 304, 111, 20);
 		contentPane.add(spinner_2);
 		
-		JButton btnVerIndividuos = new JButton("Individuos");
+		JButton btnVerIndividuos = new JButton("<html><p style=\"text-align:center;\">Detalhes<br>Individuos</p></html>");
 		btnVerIndividuos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AllIndividuos_View allIndividuos = new AllIndividuos_View();
 				allIndividuos.setVisible(true);
 			}
 		});
-		btnVerIndividuos.setBounds(1125, 82, 107, 25);
+		btnVerIndividuos.setBounds(1121, 97, 107, 40);
 		contentPane.add(btnVerIndividuos);
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon(getClass().getClassLoader().getResource("banner1.png")));
+		label.setBounds(12, 25, 1097, 40);
+		contentPane.add(label);
+		
+		JLabel lblIndividuosIniciais = new JLabel("Individuos Iniciais:");
+		lblIndividuosIniciais.setBounds(12, 8, 163, 15);
+		contentPane.add(lblIndividuosIniciais);
+		
+		JLabel lblACada = new JLabel("a cada:");
+		lblACada.setHorizontalAlignment(SwingConstants.CENTER);
+		lblACada.setBounds(1121, 285, 111, 15);
+		contentPane.add(lblACada);
+		
+		JLabel lblGeraes = new JLabel("Gerações");
+		lblGeraes.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGeraes.setBounds(1125, 331, 107, 15);
+		contentPane.add(lblGeraes);
 		
 		GenerateTable();
 	}
@@ -174,10 +190,14 @@ public class Main_View extends JFrame {
 		
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		
-		for(int i = 0; i < table.getColumnCount(); i++) {
-			table.getColumnModel().getColumn(i).setMinWidth(79);
-			table.getColumnModel().getColumn(i).setMaxWidth(79);
+		for(int i = 0; i < table.getColumnCount()-1; i++) {
+			table.getColumnModel().getColumn(i).setMinWidth(78);
+			table.getColumnModel().getColumn(i).setMaxWidth(78);
 		}
+		table.getColumnModel().getColumn(13).setMinWidth(80);
+		table.getColumnModel().getColumn(13).setMaxWidth(80);
+		
+		table.getTableHeader().setReorderingAllowed(false);
 	}
 	
 	public void GerarAleatorios() {
@@ -207,7 +227,7 @@ public class Main_View extends JFrame {
 		if(individuals != null) {
 			Fitness_View fitness_view = new Fitness_View(1,individuals);
 			fitness_view.setVisible(true);
-			this.setVisible(false);
+			this.dispose();
 		}
 	}
 	
