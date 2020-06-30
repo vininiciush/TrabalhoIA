@@ -82,8 +82,8 @@ public class Final_View extends JFrame {
 		btnIniciar.setBounds(1127, 524, 111, 25);
 		contentPane.add(btnIniciar);
 		
-		JLabel lblIndividuos = new JLabel("Individuos:");
-		lblIndividuos.setBounds(12, 8, 83, 15);
+		JLabel lblIndividuos = new JLabel("Melhor Individuo encontrado:");
+		lblIndividuos.setBounds(12, 8, 241, 15);
 		contentPane.add(lblIndividuos);
 		
 		GenerateTable(table);

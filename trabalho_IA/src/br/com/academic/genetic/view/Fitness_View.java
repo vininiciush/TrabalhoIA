@@ -94,8 +94,8 @@ public class Fitness_View extends JFrame {
 		btnIniciar.setBounds(1125, 555, 111, 25);
 		contentPane.add(btnIniciar);
 		
-		JLabel lblIndividuos = new JLabel("Individuos:");
-		lblIndividuos.setBounds(12, 8, 83, 15);
+		JLabel lblIndividuos = new JLabel("Individuos (Fitness):");
+		lblIndividuos.setBounds(12, 8, 160, 15);
 		contentPane.add(lblIndividuos);
 		
 		JButton btnFinalizar = new JButton("Finalizar");
