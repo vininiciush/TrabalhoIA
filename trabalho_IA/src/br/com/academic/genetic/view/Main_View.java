@@ -157,7 +157,7 @@ public class Main_View extends JFrame {
 		label.setBounds(12, 25, 1097, 40);
 		contentPane.add(label);
 		
-		JLabel lblIndividuosIniciais = new JLabel("Individuos Iniciais:");
+		JLabel lblIndividuosIniciais = new JLabel("População inicial:");
 		lblIndividuosIniciais.setBounds(12, 8, 163, 15);
 		contentPane.add(lblIndividuosIniciais);
 		
