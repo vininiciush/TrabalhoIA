@@ -99,7 +99,7 @@ public class Final_View extends JFrame {
 		
 		String[] columns = {"Geladeira Dako", "Notebook Dell", "Microondas Panasonic", "Notebook Asus", "Iphone 6", "Ventilador Panasonic",
 							"Geladeira Brastemp", "Tv 55\'", "Tv 50\'", "Microondas Eletrolux", "Geladeira Consul", "Tv 42\'", "Microondas LG",
-							"Notebook Lenovo", "Fitness"}; 
+							"Notebook Lenovo", "Fitness", "Volume Total"}; 
 		
 		model.setColumnIdentifiers(columns);
 		
@@ -124,7 +124,7 @@ public class Final_View extends JFrame {
 				individualString.add(""+individualProduct.getState().getState());
 			
 			individualString.add(""+format.format(individual.getFitnessValue()));
-			
+			individualString.add(""+format.format(individual.getMaxVolume()));
 			model.addRow(individualString.toArray());//Coloca na tabela o estado dos produtos
 		}
 	}
@@ -132,4 +132,5 @@ public class Final_View extends JFrame {
 	private void Exit() {
 		this.dispose();
 	}
+	
 }
